@@ -34,10 +34,13 @@ function Cloud(){
   this.Populate = function(x, y, z){
     var linesGeom = new THREE.Geometry();
     var gemGeom = new THREE.Geometry();
+    var interval = 5;
     gemsMesh = new THREE.Mesh(gemGeom, staticMat);
+    var wStop = x / 2;
+    var lStop = z /2;
 
-    for (var w = -x / 2; w < x / 2; w += 5) {
-      for (var l = -z / 2; l < z / 2; l += 5) {
+    for (var w = -x / 2; w <= wStop; w += interval) {
+      for (var l = -z / 2; l <= lStop; l += interval) {
         var newSquare = new Square({width: 1, length: 1, posX: w, posY: y, posZ: l});
         linesGeom.vertices.push(newSquare.geometry.vertices[0]);
         linesGeom.vertices.push(newSquare.geometry.vertices[1]);

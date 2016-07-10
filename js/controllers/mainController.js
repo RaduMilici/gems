@@ -13,10 +13,11 @@ gemApp.controller("mainController", ["$scope", "main3D", function($scope, main3D
     $scope.cloud.Clear();
     $scope.cloud.Populate($scope.userWidth, $scope.userHeight, $scope.userLength);
   }
+  var UpdateCloud_throttled = _.throttle($scope.UpdateCloud, 300);
 
   $scope.$watchCollection("[userWidth, userHeight, userLength]",  function(newScale) {
     main3D.project.cloud.Scale(newScale[0], newScale[1], newScale[2]);
-    //$scope.UpdateCloud();
+    UpdateCloud_throttled();
   });
 
 }]);

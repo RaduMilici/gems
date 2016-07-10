@@ -2,6 +2,7 @@ gemApp.factory("Square", ["animate", function(animate){
   var staticMat = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
   var staticMatrix = new THREE.Matrix4();
   staticMatrix.makeRotationX( Math.PI/2 );
+  var geometry = new THREE.BoxGeometry( 1, 1, 1 );
 
   function Square(settings){
     settings = settings || {};
@@ -13,10 +14,10 @@ gemApp.factory("Square", ["animate", function(animate){
     var endY = -(Math.random() * this.posY);
 
     this.geometry = new THREE.Geometry();
-    this.geometry.vertices.push(new THREE.Vector3(this.posX, 0, this.posZ));
-    this.geometry.vertices.push(new THREE.Vector3(this.posX, endY, this.posZ));
-
-    var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+    this.geometry.vertices = [
+      new THREE.Vector3(this.posX, 0, this.posZ),
+      new THREE.Vector3(this.posX, endY, this.posZ)];
+      
     this.mesh = new THREE.Mesh( geometry );
     this.mesh.position.set(this.posX, endY, this.posZ);
   }

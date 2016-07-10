@@ -1,11 +1,11 @@
 gemApp.factory("Cloud", ["animate", "Square", "$interval", function(animate, Square, $interval){
 function Cloud(){
   this.minWidth = 1;
-  this.maxWidth = 100;
+  this.maxWidth = 200;
   this.minLength = 1;
-  this.maxLength = 100;
+  this.maxLength = 200;
   this.minHeight = 1;
-  this.maxHeight = 100;
+  this.maxHeight = 200;
 
   var width, length, height;
 

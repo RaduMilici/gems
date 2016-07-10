@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html ng-app="gemApp">
+  <head>
+    <meta charset="utf-8">
+    <title>gem</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="Radu Milici">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- angular-material css -->
+    <link rel="stylesheet" type="text/css" href="bower_components/angular-material/angular-material.css">
+    <!-- bootstrap css -->
+     <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <!-- custom css -->
+    <link rel="stylesheet" type="text/css" href="css/mainViewStyle.css">
+    <link rel="stylesheet" type="text/css" href="css/sidebar.css">
+  </head>
+  <body>
+
+    <main-view></main-view>
+    <ng-view></ng-view>
+
+    <!-- jquery -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- underscore -->
+    <script src="bower_components/underscore/underscore-min.js"></script>
+    <!-- THREE -->
+    <script src="bower_components/three.js/build/three.min.js"></script>
+    <!-- THREE OrbitControls -->
+    <script src="bower_components/three.js/examples/js/controls/OrbitControls.js"></script>
+    <!-- angular -->
+    <script src="bower_components/angular/angular.min.js"></script>
+    <!-- angular-route -->
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <!-- angular-aria -->
+    <script src="bower_components/angular-aria/angular-aria.min.js"></script>
+    <!-- angular-animate -->
+    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+    <!-- angular-material -->
+     <script src="bower_components/angular-material/angular-material.min.js"></script>
+
+    <!-- app -->
+    <script src="js/app.js"></script>
+
+    <!-- services -->
+    <script src="js/services/Project.js"></script>
+    <script src="js/services/3D/Cloud.js"></script>
+    <script src="js/services/3D/Square.js"></script>
+    <script src="js/services/3D/animate.js"></script>
+    <script src="js/services/3D/WebGLRenderer.js"></script>
+    <script src="js/services/3D/Loader.js"></script>
+    <script src="js/services/3D/updater.js"></script>
+    <script src="js/services/3D/main3D.js"></script>
+
+    <!-- controllers -->
+    <script src="js/controllers/mainController.js"></script>
+  </body>
+</html>

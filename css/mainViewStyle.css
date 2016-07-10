@@ -1,0 +1,14 @@
+body{
+    margin: 0px;
+    overflow: hidden;
+    padding: 0px;
+}
+
+#WebGL{
+    position: absolute;
+    height: 100%;
+}
+
+#sliders{
+  background-color: white;
+}

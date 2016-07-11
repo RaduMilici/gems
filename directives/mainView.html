@@ -6,6 +6,11 @@
             Cloud controls
           </li>
           <li>
+            <md-switch class="col-md-11" ng-model="showBox" aria-label="Switch 1">
+              Show box
+            </md-switch>
+          </li>
+          <li>
             <md-slider-container class="col-md-11">
               <span>Width: {{userWidth}} cm</span>
               <md-slider ng-mouseup="UpdateCloud()" flex="" min="{{cloud.minWidth}}" max="{{cloud.maxWidth}}"
@@ -26,6 +31,9 @@
               <md-slider ng-mouseup="UpdateCloud()" flex="" min="{{cloud.minHeight}}" max="{{cloud.maxHeight}}"
                 ng-model="userHeight" aria-label="red" id="red-slider">
             </md-slider-container>
+          </li>
+          <li>
+            <md-button ng-click="RollSeed()" class="md-raised md-primary">new seed</md-button>
           </li>
       </ul>
     </div>

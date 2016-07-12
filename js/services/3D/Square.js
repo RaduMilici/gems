@@ -19,7 +19,7 @@ gemApp.factory("Square", ["animate", "gemMesh", function(animate, gemMesh){
     ];
 
     //this.mesh = new THREE.Mesh( geometry );
-    this.mesh = gemMesh.Droplet.clone();
+    this.mesh = gemMesh.Selected.clone();
     this.mesh.position.set(this.posX, this.posY, this.posZ);
   }
 

@@ -7,12 +7,12 @@ gemApp.factory("animate", [function(){
 
     var fov = 45;
     var near = 1;
-    var far = 1000;
+    var far = 50000;
 
     //--------------------------------------------------------------------------
     this.Start = function(){
       this.renderer.Render();
-    }
+    };
     //--------------------------------------------------------------------------
     this.MakeCamera = function(settings){
       settings = settings || {};
@@ -26,7 +26,7 @@ gemApp.factory("animate", [function(){
       this.controls = new THREE.OrbitControls( this.camera, this.renderer.domElement );
       this.controls.target.copy(lookAt);
       this.camera.lookAt(lookAt);
-    }
+    };
     //--------------------------------------------------------------------------
 
   }

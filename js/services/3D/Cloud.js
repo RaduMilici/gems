@@ -1,12 +1,21 @@
 gemApp.factory("Cloud", ["animate", "Square", "$interval", "HeightMap", "gemMesh",
 function(animate, Square, $interval, HeightMap, gemMesh){
 function Cloud(){
-  this.minWidth = 1;
-  this.maxWidth = 200;
-  this.minLength = 1;
-  this.maxLength = 200;
-  this.minHeight = 1;
-  this.maxHeight = 200;
+  //cloud size
+  this.minWidth = 50;
+  this.maxWidth = 1000;
+  this.minLength = 50;
+  this.maxLength = 1000;
+  this.minHeight = 50;
+  this.maxHeight = 300;
+  //noise
+  this.minNoiseScale = 16;
+  this.maxNoiseScale = 300;
+  //mesh
+  this.meshSize = 10;
+  this.interval = 15;
+  this.numberOfDroplets = 100;
+  this.count = undefined;
 
   var width, length, height;
   var lineColor = 0x222222;
@@ -26,12 +35,17 @@ function Cloud(){
   this.scaleCubeMesh.material.color.set( scaleCubeColor );
   animate.loader.Add( this.scaleCubeMesh );
 
-  var hm = new HeightMap();
-
-  this.RollSeed = function(){
-    hm = new HeightMap();
+  var hm = new HeightMap(this.minNoiseScale);
+//-----------------------------------------------------------------------
+  this.RollSeed = function(scale){
+    hm = new HeightMap(scale);
   };
-
+//-----------------------------------------------------------------------
+  this.SetMeshSize = function(size){
+    if(size < gemMesh.Max)
+    this.meshSize = size;
+    this.interval = size + size * 0.5;
+  };
 //-----------------------------------------------------------------------
   this.Scale = function(x, y, z){
     width = x;
@@ -40,46 +54,72 @@ function Cloud(){
     this.scaleCubeMesh.scale.set(x, y, z);
   };
 //-----------------------------------------------------------------------
-  this.Populate = function(x, y, z){
+  this.Populate = function(x, y, z, randomPos){
     var linesGeom = new THREE.Geometry();
     var gemGeom = new THREE.Geometry();
-    var interval = 15;
     gemsMesh = new THREE.Mesh(gemGeom, gemMat);
-    var wStop = x / 2;
-    var lStop = z /2;
-    var max = 0;
+    var interval = this.interval;
+    var halfInt = interval / 2;
+    var wStop = x / 2 - halfInt;
+    var lStop = z / 2 - halfInt;
+    var count = 0;
 
-    for (var w = -x / 2, Xcoord = 0; w <= wStop; w += interval, Xcoord++) {
-      for (var l = -z / 2, Ycoord = 0; l <= lStop; l += interval, Ycoord++) {
+    var randomInterval = 0;
+    var randomHalfInt = 0;
+
+    if(randomPos === true){
+      randomInterval = interval;
+      randomHalfInt = halfInt;
+    }
+
+    for (var w = -(x / 2) + halfInt, Xcoord = 0; w <= wStop; w += interval + randomInterval, Xcoord++) {
+      for (var l = -(z / 2) + halfInt, Ycoord = 0; l <= lStop; l += interval + randomInterval, Ycoord++) {
         var pixel = -hm.GetPixel(Xcoord, Ycoord);
         var newSquare = new Square({
           width: 1,
           length: 1,
-          posX: w,
-          posY: pixel / (hm.max / y) + gemMesh.Height /*+ (10 * pixel)*/,
-          posZ: l
+          posX: w + random(-randomHalfInt, randomHalfInt),
+          posY: (pixel / (hm.max / y) + gemMesh.Height),
+          posZ: l + random(-randomHalfInt, randomHalfInt)
         });
-        linesGeom.vertices.push(newSquare.geometry.vertices[0]);
-        linesGeom.vertices.push(newSquare.geometry.vertices[1]);
+        count++;
+        //linesGeom.vertices.push(newSquare.geometry.vertices[0]);
+        //linesGeom.vertices.push(newSquare.geometry.vertices[1]);
+        newSquare.mesh.scale.set(this.meshSize, this.meshSize, this.meshSize);
         newSquare.mesh.updateMatrix();
         gemsMesh.geometry.merge(newSquare.mesh.geometry, newSquare.mesh.matrix);
       }
     }
 
-    var lineSeg = new THREE.LineSegments(linesGeom,  new THREE.LineBasicMaterial({color: lineColor}));
-    lineSegmentMesh = lineSeg;
-    animate.loader.Add(lineSeg);
+    this.count = count;
+
+    //var lineSeg = new THREE.LineSegments(linesGeom,  new THREE.LineBasicMaterial({color: lineColor}));
+    //lineSegmentMesh = lineSeg;
+    //animate.loader.Add(lineSeg);
     animate.loader.Add(gemsMesh);
   };
 //-----------------------------------------------------------------------
   this.Clear = function(){
-    lineSegmentMesh.geometry.dispose();
-    animate.loader.scene.remove(lineSegmentMesh);
+    //lineSegmentMesh.geometry.dispose();
+    //animate.loader.scene.remove(lineSegmentMesh);
 
     gemsMesh.geometry.dispose();
     animate.loader.scene.remove(gemsMesh);
   };
 //-----------------------------------------------------------------------
+  this.GetInterval = function(count){
+    var area = width * length;
+    var single = area / count;
+    return Math.floor(single);
+  };
+//-----------------------------------------------------------------------
+  this.GetCount = function(){
+    return this.count;
+  };
+//-----------------------------------------------------------------------
+  function random(min,max){
+    return Math.floor(Math.random()*(max-min+1)+min);
+  }
 }
 
   return Cloud;

@@ -2,17 +2,17 @@ var gemApp = angular.module("gemApp", ["ngRoute", "ngMaterial"]);
 
 //routes
 
-/*gemApp.config(function($routeProvider) {
+gemApp.config(function($routeProvider) {
 	$routeProvider
 		.when("/", {
-			templateUrl: "templates/main.html"
+			templateUrl: "templates/mainView.html",
+      controller: "mainController"
 		});
-});*/
+});
 
 //directives
-gemApp.directive("mainView", function() {
+gemApp.directive("cloudSize", function() {
   return {
-    templateUrl: "directives/mainView.html",
-    controller: "mainController"
+    templateUrl: "directives/cloudSize.html"
   };
 });

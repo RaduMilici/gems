@@ -10,6 +10,11 @@
               Show box
             </md-switch>
           </li>
+          <li>
+            <md-switch class="col-md-11" ng-model="randomPlace" aria-label="Switch 1">
+              Random placement
+            </md-switch>
+          </li>
           <cloud-size></cloud-size>
           <li>
             <md-slider-container class="col-md-11">
@@ -18,11 +23,18 @@
                 ng-model="userNoiseScale" aria-label="red" id="red-slider">
             </md-slider-container>
           </li>
-          </li>
+          <li>
             <md-slider-container class="col-md-11">
               <span>Gem height: {{meshSize}} cm</span>
               <md-slider ng-mouseup="UpdateCloud()" flex="" min="{{gemMesh.Min}}" max="{{gemMesh.Max}}"
-                ng-model="meshSize" aria-label="red" id="red-slider">
+                ng-model="meshSize" aria-label="red">
+            </md-slider-container>
+          </li>
+          <li>
+            <md-slider-container class="col-md-11">
+              <span>Density</span>
+              <md-slider ng-mouseup="UpdateCloud()" flex="" min="{{gemMesh.Min}}" max="100"
+                ng-model="meshSize" aria-label="red">
             </md-slider-container>
           </li>
           <li>

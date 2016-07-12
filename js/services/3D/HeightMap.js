@@ -1,8 +1,8 @@
 gemApp.factory("HeightMap", [function(){
 
-  return function(){
+  return function(scale){
     var _this = this;
-    var side = 512;
+    var side = scale;
     this.max = 0;
 //----------------------------------------------------------------------
     this.randomNoise = function(canvas, x, y, width, height, alpha) {
@@ -25,24 +25,31 @@ gemApp.factory("HeightMap", [function(){
     };
 //----------------------------------------------------------------------
     this.perlinNoise = function(canvas, noise) {
-        noise = noise || this.randomNoise(createCanvas(canvas.width, canvas.height));
-        var g = canvas.getContext("2d");
-        g.save();
+      noise = noise || this.randomNoise(createCanvas(canvas.width, canvas.height));
+      var g = canvas.getContext("2d");
+      g.save();
 
-        for (var size = 4; size <= noise.width; size *= 2) {
-            var x = (Math.random() * (noise.width - size)) | 0,
-                y = (Math.random() * (noise.height - size)) | 0;
-            g.globalAlpha = 4 / size;
-            g.drawImage(noise, x, y, size, size, 0, 0, canvas.width, canvas.height);
-        }
+      for (var size = 4; size <= noise.width; size *= 2) {
+          var x = (Math.random() * (noise.width - size)) | 0,
+              y = (Math.random() * (noise.height - size)) | 0;
+          g.globalAlpha = 4 / size;
+          g.drawImage(noise, x, y, size, size, 0, 0, canvas.width, canvas.height);
+      }
 
-        g.restore();
-        return canvas;
+      g.restore();
+      return canvas;
     };
 //----------------------------------------------------------------------
     this.GetPixel = function(x, y) {
+      if(x > side)
+        x = side - (side - x);
+
+      if(y > side)
+        y = side - (side - y);
+        
       var roll = ctx.getImageData(x, y, 1, 1).data[0];
-      if(roll > this.max) this.max = roll;
+      if(roll > this.max)
+        this.max = roll;
       return roll;
     };
 //----------------------------------------------------------------------

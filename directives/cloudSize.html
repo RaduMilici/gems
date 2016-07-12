@@ -1,0 +1,22 @@
+<li>
+  <md-slider-container class="col-md-11">
+    <span>Width: {{userWidth}} cm</span>
+    <md-slider ng-mouseup="UpdateCloud()" flex="" min="{{cloud.minWidth}}" max="{{cloud.maxWidth}}"
+      ng-model="userWidth" aria-label="red" id="red-slider">
+  </md-slider-container>
+  <md-slider-container>
+</li>
+<li>
+  <md-slider-container class="col-md-11">
+    <span>Length: {{userLength}} cm</span>
+    <md-slider ng-mouseup="UpdateCloud()" flex="" min="{{cloud.minLength}}" max="{{cloud.maxLength}}"
+      ng-model="userLength" aria-label="gray" id="red-slider">
+  </md-slider-container>
+</li>
+<li>
+  <md-slider-container class="col-md-11">
+    <span>Height: {{userHeight}} cm</span>
+    <md-slider ng-mouseup="UpdateCloud()" flex="" min="{{cloud.minHeight}}" max="{{cloud.maxHeight}}"
+      ng-model="userHeight" aria-label="red" id="red-slider">
+  </md-slider-container>
+</li>

@@ -1,18 +1,18 @@
 gemApp.controller("mainController", ["$scope", "main3D", "gemMesh", function($scope, main3D, gemMesh) {
   main3D.Start();
 
+  //cloud size
+  $scope.userWidth = 1000;
+  $scope.userHeight = 50;
+  $scope.userLength = 250;
+
   $scope.cloud = main3D.project.cloud;
   $scope.gemMesh = gemMesh;
-  $scope.userWidth = 150;
-  $scope.userHeight = 50;
-  $scope.userLength = 150;
   $scope.userNoiseScale = $scope.cloud.minNoiseScale;
   $scope.showBox = true;
-  $scope.selectedMesh = "Crystal";
-  $scope.meshSize = 6;
-  $scope.meshCount = undefined;
+  $scope.selectedMesh = "Droplet";
+  $scope.meshSize = $scope.cloud.meshSize;
   $scope.randomPlace = false;
-  var throttleArea = 10000; //will call throttled 'UpdateCloud_throttled' above this area
 
 //------------------------------------------------------------------------------
   $scope.ToggleControls = function(bool){
@@ -29,12 +29,11 @@ gemApp.controller("mainController", ["$scope", "main3D", "gemMesh", function($sc
     $scope.cloud.SetMeshSize($scope.meshSize);
     $scope.cloud.Populate($scope.userWidth, $scope.userHeight, $scope.userLength, $scope.randomPlace);
   };
-  var UpdateCloud_throttled = _.throttle($scope.UpdateCloud, 300);
 //------------------------------------------------------------------------------
   $scope.SelectMesh = function(){
     $scope.cloud.Clear();
     gemMesh.SelectMesh($scope.selectedMesh).then(function(){
-        $scope.meshSize = gemMesh.Min;
+        $scope.meshSize = gemMesh.GetSize($scope.meshSize);
         $scope.UpdateCloud();
       }
     );
@@ -56,18 +55,10 @@ gemApp.controller("mainController", ["$scope", "main3D", "gemMesh", function($sc
     $scope.UpdateCloud();
   });
 //------------------------------------------------------------------------------
-  function dynamicUpdate(){
-    if($scope.userWidth * $scope.userLength > throttleArea)
-      UpdateCloud_throttled();
-    else
-      $scope.UpdateCloud();
-  }
-//------------------------------------------------------------------------------
   main3D.project.cloud.Scale($scope.userWidth, $scope.userHeight, $scope.userLength);
 
   gemMesh["Load" + $scope.selectedMesh]().then(function(object){
     $scope.cloud.Populate($scope.userWidth, $scope.userHeight, $scope.userLength);
-    $scope.meshCount = $scope.cloud.count;
   });
 
 }]);

@@ -6,7 +6,7 @@ function(animate, WebGLRenderer, Loader, Project){
     animate.renderer = new WebGLRenderer("WebGL");
     animate.loader = new Loader();
     animate.MakeCamera({
-      pos: new THREE.Vector3(150, 150, 150),
+      pos: new THREE.Vector3(-350, 350, -350),
       lookAt: new THREE.Vector3(0, -75, 0),
     });
 

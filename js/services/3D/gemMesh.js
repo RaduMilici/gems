@@ -72,7 +72,15 @@ gemApp.factory("gemMesh", ["updater", "$q", function(updater, $q){
         this.Min = 10;
         this.Max = 30;
       }
-    }
+    },
 //------------------------------------------------------------------------------
+    GetSize: function(size){
+      if(size <= this.Min)
+        return this.Min;
+      else if (size >= this.Max)
+        return this.Max;
+      else
+        return size;
+    }
   };
 }]);

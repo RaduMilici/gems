@@ -41,12 +41,8 @@ gemApp.factory("HeightMap", [function(){
     };
 //----------------------------------------------------------------------
     this.GetPixel = function(x, y) {
-      if(x > side)
-        x = side - (side - x);
-
-      if(y > side)
-        y = side - (side - y);
-        
+      x = tile(x);
+      y = tile(y);
       var roll = ctx.getImageData(x, y, 1, 1).data[0];
       if(roll > this.max)
         this.max = roll;
@@ -59,6 +55,11 @@ gemApp.factory("HeightMap", [function(){
       c.height = h;
       return c;
     }
+//----------------------------------------------------------------------
+  function tile(n){
+    var range = side - 1;
+    return Math.abs(((n + range) % (range * 2)) - range);
+  }
 //----------------------------------------------------------------------
     var canvas = createCanvas(side, side);
     canvas = this.perlinNoise(canvas);

@@ -43,7 +43,8 @@ gemApp.factory("HeightMap", [function(){
     this.GetPixel = function(x, y) {
       x = tile(x);
       y = tile(y);
-      var roll = ctx.getImageData(x, y, 1, 1).data[0];
+      //var roll = ctx.getImageData(x, y, 1, 1).data[0];
+      var roll = imgData.data[(y* side * 4) + (x * 4)];
       if(roll > this.max)
         this.max = roll;
       return roll;
@@ -65,8 +66,7 @@ gemApp.factory("HeightMap", [function(){
     canvas = this.perlinNoise(canvas);
     var ctx = canvas.getContext("2d");
     var imgData = ctx.getImageData(0, 0, side, side);
-    //this.texture = new THREE.Texture( canvas );
-    //this.texture.needsUpdate = true;
+    //var sourceBuffer32 = new Uint32Array(myGetImageData.data.buffer);
   };
 
 }]);

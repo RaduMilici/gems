@@ -1,5 +1,5 @@
 gemApp.factory("gemMesh", ["updater", "$q", function(updater, $q){
-  var url = "js/models/";
+  var url = "js/assets/";
   var loader = new THREE.JSONLoader();
 
   return {
@@ -8,9 +8,10 @@ gemApp.factory("gemMesh", ["updater", "$q", function(updater, $q){
     Selected: undefined,
     Min: undefined,
     Max: undefined,
+    EnvMap: loadEnvMap(),
     Height: 10,
 //------------------------------------------------------------------------------
-    Load: function(name){
+    LoadMesh: function(name){
       var deferred = $q.defer();
       loader.load(url + name + ".js", onLoad.bind(this));
       function onLoad(geometry){
@@ -22,7 +23,7 @@ gemApp.factory("gemMesh", ["updater", "$q", function(updater, $q){
 //------------------------------------------------------------------------------
     LoadDroplet: function(){
       var _this = this;
-      var promise = this.Load("droplet");
+      var promise = this.LoadMesh("droplet");
 
       promise.then(function(object){
         _this.SetSizes("Droplet");
@@ -34,7 +35,7 @@ gemApp.factory("gemMesh", ["updater", "$q", function(updater, $q){
 //------------------------------------------------------------------------------
     LoadCrystal: function(){
       var _this = this;
-      var promise = this.Load("crystal");
+      var promise = this.LoadMesh("crystal");
 
       promise.then(function(object){
         _this.SetSizes("Crystal");
@@ -83,4 +84,21 @@ gemApp.factory("gemMesh", ["updater", "$q", function(updater, $q){
         return size;
     }
   };
+
+  //------------------------------------------------------------------------------
+  function loadEnvMap(){
+    var ext = ".jpg";
+    var cubeUrl = url + "cubemap/Cube__";
+    var urls = [
+      cubeUrl + "FR" + ext,
+      cubeUrl + "BK" + ext,
+      cubeUrl + "UP" + ext,
+      cubeUrl + "DN" + ext,
+      cubeUrl + "RT" + ext,
+      cubeUrl + "LF" + ext
+    ];
+    var eMap = new THREE.CubeTextureLoader().load(urls);
+    eMap.format = THREE.RGBFormat;
+    return eMap;
+  }
 }]);

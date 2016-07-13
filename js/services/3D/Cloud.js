@@ -61,7 +61,8 @@ function Cloud(){
     var linesGeom = new THREE.Geometry();
     var gemGeom = new THREE.Geometry();
     gemsMesh = new THREE.Mesh(gemGeom, new THREE.MeshFaceMaterial([
-      new THREE.MeshBasicMaterial({color: 0xff0000}),
+      new THREE.MeshBasicMaterial({color: 0xffffff, envMap: gemMesh.EnvMap,
+        specular:0xaa0000, combine: THREE.MixOperation, refractionRatio: 0.95}),
       new THREE.MeshBasicMaterial({color: 0x00ff00}),
       new THREE.MeshBasicMaterial({color: 0x0000ff}),
     ]));
@@ -95,22 +96,22 @@ function Cloud(){
           posY: (pixel / (hm.max / y) + gemMesh.Height) /*TODO: multiply by amplitude here*/ ,
           posZ: l + random(-randomHalfInt, randomHalfInt)
         });
-        //linesGeom.vertices.push(newSquare.geometry.vertices[0]);
-        //linesGeom.vertices.push(newSquare.geometry.vertices[1]);
+        linesGeom.vertices.push(newSquare.geometry.vertices[0]);
+        linesGeom.vertices.push(newSquare.geometry.vertices[1]);
         newSquare.mesh.scale.set(this.meshSize, this.meshSize, this.meshSize);
         newSquare.mesh.updateMatrix();
-        gemsMesh.geometry.merge(newSquare.mesh.geometry, newSquare.mesh.matrix, Math.floor(Math.random() * 3));
+        gemsMesh.geometry.merge(newSquare.mesh.geometry, newSquare.mesh.matrix, 0);
       }
     }
-    //var lineSeg = new THREE.LineSegments(linesGeom,  new THREE.LineBasicMaterial({color: lineColor}));
-    //lineSegmentMesh = lineSeg;
+    var lineSeg = new THREE.LineSegments(linesGeom,  new THREE.LineBasicMaterial({color: lineColor}));
+    lineSegmentMesh = lineSeg;
     //animate.loader.Add(lineSeg);
     animate.loader.Add(gemsMesh);
   };
 //-----------------------------------------------------------------------
   this.Clear = function(){
-    //lineSegmentMesh.geometry.dispose();
-    //animate.loader.scene.remove(lineSegmentMesh);
+    lineSegmentMesh.geometry.dispose();
+    animate.loader.scene.remove(lineSegmentMesh);
     gemsMesh.geometry.dispose();
     animate.loader.scene.remove(gemsMesh);
   };

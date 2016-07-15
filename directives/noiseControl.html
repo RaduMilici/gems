@@ -1,0 +1,14 @@
+<li>
+  <md-slider-container class="col-md-11">
+    <span>Noise scale: {{userNoiseScale}} </span>
+    <md-slider ng-mouseup="RollSeed()" flex="" min="{{cloud.minNoiseScale}}" max="{{cloud.maxNoiseScale}}"
+      ng-model="userNoiseScale" aria-label="red" id="red-slider">
+  </md-slider-container>
+</li>
+<li>
+  <md-slider-container class="col-md-11">
+    <span>Magnitude: {{cloud.magnitude}} </span>
+    <md-slider ng-mouseup="UpdateCloud()" flex="" min="{{cloud.minMagnitude}}" max="{{cloud.maxMagnitude}}"
+      ng-model="cloud.magnitude" aria-label="red" id="red-slider">
+  </md-slider-container>
+</li>

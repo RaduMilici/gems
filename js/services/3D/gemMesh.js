@@ -9,13 +9,14 @@ gemApp.factory("gemMesh", ["updater", "$q", function(updater, $q){
     Min: undefined,
     Max: undefined,
     EnvMap: loadEnvMap(),
-    Height: 10,
+    Height: undefined,
 //------------------------------------------------------------------------------
     LoadMesh: function(name){
       var deferred = $q.defer();
       loader.load(url + name + ".js", onLoad.bind(this));
       function onLoad(geometry){
         var object = new THREE.Mesh(geometry);
+        if(name == "droplet") geometry.computeVertexNormals();
         deferred.resolve(object);
       }
       return deferred.promise;
@@ -28,6 +29,7 @@ gemApp.factory("gemMesh", ["updater", "$q", function(updater, $q){
       promise.then(function(object){
         _this.SetSizes("Droplet");
         _this.Droplet = _this.Selected = object;
+        _this.Selected.name = "Droplet";
       });
 
       return promise;
@@ -35,11 +37,12 @@ gemApp.factory("gemMesh", ["updater", "$q", function(updater, $q){
 //------------------------------------------------------------------------------
     LoadCrystal: function(){
       var _this = this;
-      var promise = this.LoadMesh("crystal");
+      var promise = this.LoadMesh("crystal4");
 
       promise.then(function(object){
         _this.SetSizes("Crystal");
         _this.Crystal = _this.Selected = object;
+        _this.Selected.name = "Crystal";
       });
 
       return promise;
@@ -64,13 +67,12 @@ gemApp.factory("gemMesh", ["updater", "$q", function(updater, $q){
 //------------------------------------------------------------------------------
     SetSizes: function(name){
       if(name == "Crystal"){
-        this.Height =
         this.Min = 3;
-        this.Max = 10;
+        this.Height = this.Max = 10;
       }
       else if (name == "Droplet"){
-        this.Height =
         this.Min = 10;
+        this.Height = 15;
         this.Max = 30;
       }
     },
@@ -84,11 +86,10 @@ gemApp.factory("gemMesh", ["updater", "$q", function(updater, $q){
         return size;
     }
   };
-
-  //------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
   function loadEnvMap(){
     var ext = ".jpg";
-    var cubeUrl = url + "cubemap/Cube__";
+    var cubeUrl = url + "cubemap/env__";
     var urls = [
       cubeUrl + "FR" + ext,
       cubeUrl + "BK" + ext,

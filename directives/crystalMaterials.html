@@ -1,0 +1,19 @@
+<li>
+  <md-slider-container class="col-md-11">
+    <span>Crystal: {{cloud.materialSettings.Crystal.crystal}}%</span>
+    <md-slider ng-mouseup="UpdateCloud()" ng-change="UpdateCrystalSliders()" flex="" min="0" max="100"
+      ng-model="cloud.materialSettings.Crystal.crystal" aria-label="red">
+  </md-slider-container>
+
+  <md-slider-container class="col-md-11">
+    <span>Amber: {{cloud.materialSettings.Crystal.amber}}%</span>
+    <md-slider ng-mouseup="UpdateCloud()" ng-change="UpdateCrystalSliders()" flex="" min="0" max="100"
+      ng-model="cloud.materialSettings.Crystal.amber" aria-label="red">
+  </md-slider-container>
+
+  <md-slider-container class="col-md-11">
+    <span>Smoke: {{cloud.materialSettings.Crystal.smoke}}%</span>
+    <md-slider ng-mouseup="UpdateCloud()" ng-change="UpdateCrystalSliders()" flex="" min="0" max="100"
+      ng-model="cloud.materialSettings.Crystal.smoke" aria-label="red">
+  </md-slider-container>
+</li>

@@ -24,6 +24,11 @@ gemApp.factory("animate", [function(){
 
       this.camera.position.copy(pos);
       this.controls = new THREE.OrbitControls( this.camera, this.renderer.domElement );
+      this.controls.noPan = true;
+      this.controls.autoRotate = true;
+      this.controls.autoRotateSpeed = 0.5;
+      this.controls.minDistance = 150;
+      this.controls.maxDistance = 1200;
       this.controls.target.copy(lookAt);
       this.camera.lookAt(lookAt);
     };

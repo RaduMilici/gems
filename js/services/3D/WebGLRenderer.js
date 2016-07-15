@@ -1,19 +1,21 @@
 gemApp.factory("WebGLRenderer", ["updater", "animate", function(updater, animate){
 
   function Renderer(containerID){
+    var scope = this;
     this.container = getContainer(containerID);
     this.width = $(this.container).outerWidth();
     this.height = $(this.container).outerHeight();
 
     var frameID = undefined;
-    var renderer = makeRenderer(this.width, this.height);
+    this.renderer = makeRenderer(this.width, this.height);
     appendCanvas(this.container);
 
     //--------------------------------------------------------------------------
     this.Render = function(){
       updater.UpdateHandlers();
+      animate.controls.update();
       frameID = requestAnimationFrame( this.Render.bind(this) );
-      renderer.render(animate.loader.scene, animate.camera);
+      this.renderer.render(animate.loader.scene, animate.camera);
     };
     //--------------------------------------------------------------------------
     function getContainer(containerID){
@@ -28,7 +30,7 @@ gemApp.factory("WebGLRenderer", ["updater", "animate", function(updater, animate
       catch(err) {
         console.error(err);
       }
-    };
+    }
     //--------------------------------------------------------------------------
     function makeRenderer(width, height){
       var renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
@@ -37,8 +39,8 @@ gemApp.factory("WebGLRenderer", ["updater", "animate", function(updater, animate
     }
     //--------------------------------------------------------------------------
     function appendCanvas(container){
-      $(renderer.domElement).appendTo(container);
-      $(renderer.domElement).attr('id', containerID + "Canvas");
+      $(scope.renderer.domElement).appendTo(container);
+      $(scope.renderer.domElement).attr('id', containerID + "Canvas");
     }
   }
 

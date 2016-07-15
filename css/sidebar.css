@@ -9,6 +9,15 @@
  }
 
 /* Toggle Styles */
+md-slider{
+    margin-top: -25px;
+    height: 35px;
+}
+
+md-radio-button{
+}
+
+
 
 #wrapper {
     padding-left: 0;
@@ -58,6 +67,7 @@
     position: absolute;
     top: 0;
     width: 250px;
+    height: 100%;
     margin: 0;
     padding: 0;
     list-style: none;

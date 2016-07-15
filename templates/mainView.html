@@ -1,53 +1,40 @@
 <div class="container-fluid">
   <div class="row">
-    <div ng-cloak class="col-md-2">
+    <div class="col-md-2">
       <ul class="sidebar-nav">
-          <li class="sidebar-brand">
-            Cloud controls
-          </li>
-          <li>
-            <md-switch class="col-md-11" ng-model="showBox" aria-label="Switch 1">
-              Show box
-            </md-switch>
-          </li>
-          <li>
-            <md-switch class="col-md-11" ng-model="randomPlace" aria-label="Switch 1">
-              Random placement
-            </md-switch>
-          </li>
-          <cloud-size></cloud-size>
+        <select-mesh></select-mesh>
+        <crystal-materials ng-show="gemMesh.Selected.name == 'Crystal'"></crystal-materials>
+        <droplet-materials ng-show="gemMesh.Selected.name == 'Droplet'"></droplet-materials>
+        <cloud-size></cloud-size>
+        <li>
+          <md-switch class="col-md-11" ng-model="randomPlace" aria-label="Switch 1">
+            Random placement
+          </md-switch>
+        </li>
+        <noise-control></noise-control>
           <li>
             <md-slider-container class="col-md-11">
-              <span>Noise scale: {{userNoiseScale}} </span>
-              <md-slider ng-mouseup="RollSeed()" flex="" min="{{cloud.minNoiseScale}}" max="{{cloud.maxNoiseScale}}"
-                ng-model="userNoiseScale" aria-label="red" id="red-slider">
-            </md-slider-container>
-          </li>
-          <li>
-            <md-slider-container class="col-md-11">
-              <span>Gem height: {{meshSize}} cm</span>
+              <span>Gem height: {{cloud.meshHeight}} cm</span>
               <md-slider ng-mouseup="UpdateCloud()" flex="" min="{{gemMesh.Min}}" max="{{gemMesh.Max}}"
-                ng-model="meshSize" aria-label="red">
+                ng-model="cloud.meshHeight" aria-label="red">
             </md-slider-container>
           </li>
           <li>
             <md-slider-container class="col-md-11">
               <span>Dispersion: {{cloud.count}} gems</span>
               <md-slider ng-mouseup="UpdateCloud()" flex="" min="{{gemMesh.Min}}" max="100"
-                ng-model="meshSize" aria-label="red">
+                ng-model="cloud.meshHeight" aria-label="red">
             </md-slider-container>
           </li>
           <li>
             <md-button ng-click="RollSeed()" class="md-raised md-primary">new seed</md-button>
+            <md-button ng-click="LogCloud()" class="md-raised md-primary">log</md-button>
           </li>
           <li>
-            <md-radio-group ng-model="selectedMesh" ng-change="SelectMesh()" class="md-primary col-md-11">
-              <md-radio-button ng-value="'Droplet'">droplet</md-radio-button>
-              <md-radio-button ng-value="'Crystal'">crystal</md-radio-button>
-            </md-radio-group>
+            <md-button ng-click="Screenshot()" class="md-raised md-primary">picture</md-button>
           </li>
-      </ul>
+        </ul>
     </div>
-    <div id="WebGL" ng-mouseenter="ToggleControls(true)" ng-mouseleave="ToggleControls(false)" class="col-md-10 col-md-offset-2"></div>
+    <div id="WebGL" ng-mouseenter="ToggleControls(true)" ng-mouseleave="ToggleControls(false)" class="col-md-10"></div>
   </div> <!-- row -->
 </div>

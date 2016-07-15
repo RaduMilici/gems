@@ -5,8 +5,12 @@ body{
 }
 
 #WebGL{
-    position: absolute;
+    left: 250px;
+    position: fixed;
     height: 100%;
+    width: -moz-calc(100% - 250px);
+    width: -webkit-calc(100% - 250px);
+    width: calc(100% - 250px);
 }
 
 #sliders{

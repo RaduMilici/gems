@@ -1,6 +1,7 @@
 gemApp.factory("gemMesh", ["updater", "$q", function(updater, $q){
-  var url = "js/assets/";
+  var assetsUrl = "js/assets/";
   var loader = new THREE.JSONLoader();
+    var textureLoader = new THREE.TextureLoader();
 
   return {
     Droplet: undefined,
@@ -8,19 +9,23 @@ gemApp.factory("gemMesh", ["updater", "$q", function(updater, $q){
     Selected: undefined,
     Min: undefined,
     Max: undefined,
-    EnvMap: loadEnvMap(),
+    EnvMap: loadEnvMap("Cube"),
+    LoadEnvMap: loadEnvMap,
+    GetCubeURLs: getCubeURLs,
     Height: undefined,
 //------------------------------------------------------------------------------
     LoadMesh: function(name){
       var deferred = $q.defer();
-      loader.load(url + name + ".js", onLoad.bind(this));
+      loader.load(assetsUrl + name + ".js", onLoad.bind(this));
       function onLoad(geometry){
         var object = new THREE.Mesh(geometry);
-        if(name == "droplet") geometry.computeVertexNormals();
+        geometry.computeVertexNormals();
         deferred.resolve(object);
       }
       return deferred.promise;
     },
+//------------------------------------------------------------------------------
+    LoadTexture: loadTexture,
 //------------------------------------------------------------------------------
     LoadDroplet: function(){
       var _this = this;
@@ -87,20 +92,42 @@ gemApp.factory("gemMesh", ["updater", "$q", function(updater, $q){
     }
   };
 //------------------------------------------------------------------------------
-  function loadEnvMap(){
-    var ext = ".jpg";
-    var cubeUrl = url + "cubemap/env__";
-    var urls = [
-      cubeUrl + "FR" + ext,
-      cubeUrl + "BK" + ext,
-      cubeUrl + "UP" + ext,
-      cubeUrl + "DN" + ext,
-      cubeUrl + "RT" + ext,
-      cubeUrl + "LF" + ext
-    ];
+  function getCubeURLs(name, ext){
+      ext = ext || ".jpg";
+      var cubeUrl = assetsUrl + "cubemap/" + name + "__";
+      return [
+        cubeUrl + "FR" + ext,
+        cubeUrl + "BK" + ext,
+        cubeUrl + "UP" + ext,
+        cubeUrl + "DN" + ext,
+        cubeUrl + "RT" + ext,
+        cubeUrl + "LF" + ext
+      ];
+  }
+//------------------------------------------------------------------------------
+  function loadEnvMap(name){
+    var urls = getCubeURLs(name);
     var eMap = new THREE.CubeTextureLoader().load(urls);
     eMap.format = THREE.RGBFormat;
     eMap.mapping = THREE.CubeRefractionMapping;
     return eMap;
+  }
+
+//------------------------------------------------------------------------------
+  function loadTexture(){
+    var deferred = $q.defer();
+
+    textureLoader.load( assetsUrl + "/roughness_map.jpg", function( map ) {
+      map.wrapS = THREE.RepeatWrapping;
+      map.wrapT = THREE.RepeatWrapping;
+      map.anisotropy = 4;
+      map.repeat.set( 9, 2 );
+      deferred.resolve(map);
+      /*standardMaterial.roughnessMap = map;
+      standardMaterial.bumpMap = map;
+      standardMaterial.needsUpdate = true;*/
+    } );
+
+    return deferred.promise;
   }
 }]);

@@ -8,6 +8,12 @@
     overflow-x: hidden;
  }
 
+ input{
+   height: 20px;
+   width: 30px;
+   margin-bottom: 20px;
+ }
+
 /* Toggle Styles */
 md-slider{
     margin-top: -25px;

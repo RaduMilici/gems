@@ -1,5 +1,5 @@
-gemApp.factory("main3D", ["animate", "WebGLRenderer", "Loader", "Project", "gemMesh", "screenshot",
-function(animate, WebGLRenderer, Loader, Project, gemMesh, screenshot){
+gemApp.factory("main3D", ["animate", "WebGLRenderer", "Loader", "Project", "gemMesh", "screenshot", "updater",
+function(animate, WebGLRenderer, Loader, Project, gemMesh, screenshot, updater){
   this.project = undefined;
   this.containerID = "WebGL";
 //------------------------------------------------------------------------------
@@ -12,7 +12,7 @@ function(animate, WebGLRenderer, Loader, Project, gemMesh, screenshot){
     });
     var winResize  = new THREEx.WindowResize(animate.renderer.renderer, animate.camera);
     this.project = new Project();
-    //animate.loader.scene.background = gemMesh.EnvMap;
+    animate.loader.scene.background = gemMesh.EnvMap;
     addLight();
     animate.Start();
   };
@@ -26,7 +26,7 @@ function(animate, WebGLRenderer, Loader, Project, gemMesh, screenshot){
   };
 
   function addLight(){
-    var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.3 );
+    /*var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.3 );
     directionalLight.position.copy( animate.camera.position );
     animate.loader.Add( directionalLight );
 
@@ -34,7 +34,25 @@ function(animate, WebGLRenderer, Loader, Project, gemMesh, screenshot){
     animate.loader.Add( ambientLight );
 
     var light = new THREE.HemisphereLight( 0xffffbb, 0x080820, 0.3 );
-    animate.loader.Add( light );
+    animate.loader.Add( light );*/
+    animate.loader.Add( new THREE.AmbientLight( 0xffffff ) );
+
+    /*var spotLight = new THREE.SpotLight( 0xffffff );
+    spotLight.position.set( 500, 0, 500 );
+    spotLight.distance = 1000;
+    spotLight.angle = 1.05;
+    spotLight.penumbra = 0;
+    spotLight.castShadow = true;
+    spotLight.target.position.set(0, 0, 0);
+    animate.loader.Add( spotLight.target );
+    animate.loader.Add( spotLight );
+
+    updater.AddHandler({
+      spotLight: spotLight,
+      Update: function(){
+        this.spotLight.position.clone(animate.camera.position);
+      }
+    });*/
   }
 
   return this;

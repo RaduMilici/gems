@@ -4,6 +4,7 @@ gemApp.factory("animate", [function(){
     this.renderer = undefined;
     this.camera = undefined;
     this.controls = undefined;
+    this.composer = undefined;
 
     var fov = 45;
     var near = 1;
@@ -24,7 +25,7 @@ gemApp.factory("animate", [function(){
 
       this.camera.position.copy(pos);
       this.controls = new THREE.OrbitControls( this.camera, this.renderer.domElement );
-      this.controls.noPan = true;
+      this.controls.enablePan = false;
       this.controls.autoRotate = true;
       this.controls.autoRotateSpeed = 0.5;
       this.controls.minDistance = 150;

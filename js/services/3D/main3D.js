@@ -12,7 +12,7 @@ function(animate, WebGLRenderer, Loader, Project, gemMesh, screenshot){
     });
     var winResize  = new THREEx.WindowResize(animate.renderer.renderer, animate.camera);
     this.project = new Project();
-    animate.loader.scene.background = gemMesh.EnvMap;
+    //animate.loader.scene.background = gemMesh.EnvMap;
     addLight();
     animate.Start();
   };

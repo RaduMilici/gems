@@ -100,6 +100,7 @@ gemApp.factory("gemMesh", ["updater", "$q", function(updater, $q){
     ];
     var eMap = new THREE.CubeTextureLoader().load(urls);
     eMap.format = THREE.RGBFormat;
+    eMap.mapping = THREE.CubeRefractionMapping;
     return eMap;
   }
 }]);

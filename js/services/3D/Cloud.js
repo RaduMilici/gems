@@ -29,8 +29,9 @@ function Cloud(){
   var meshFaceMat = {
     Crystal:
       new THREE.MeshFaceMaterial([
-      new THREE.MeshLambertMaterial({color: 0xffffff, envMap: gemMesh.EnvMap, //crystal
-        combine: THREE.MixOperation, refractionRatio: 0.95, transparent: true, opacity: 0.8}),
+      /*new THREE.MeshLambertMaterial({color: 0xffffff, envMap: gemMesh.EnvMap, //crystal
+        combine: THREE.MixOperation, refractionRatio: 0.95, transparent: true, opacity: 0.8}),*/
+      new THREE.MeshPhongMaterial({ color: 0xccddff, envMap: gemMesh.EnvMap, refractionRatio: 0.98, reflectivity:0.9}),
       new THREE.MeshLambertMaterial({color: 0xFFC200, envMap: gemMesh.EnvMap, //amber
         transparent: true, opacity: 0.8}),
       new THREE.MeshLambertMaterial({color: 0x777777, envMap: gemMesh.EnvMap, //smoke
@@ -46,12 +47,14 @@ function Cloud(){
       new THREE.MeshLambertMaterial({color: 0xff0000, envMap: gemMesh.EnvMap})  //red
     ])
   };
+
+  console.log(meshFaceMat.Crystal.materials[0])
   this.materialSettings = {
     number: 50000,
     Crystal:{
-      crystal: 33,
-      amber: 33,
-      smoke: 33
+      crystal: 100,
+      amber: 0,
+      smoke: 0
     },
     Droplet:{
       gold: 16,

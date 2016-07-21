@@ -12,7 +12,7 @@ function($scope, main3D, gemMesh) {
   $scope.userNoiseScale = $scope.cloud.minNoiseScale;
   $scope.userMagnitude = $scope.cloud.magnitude;
   $scope.showBox = false;
-  $scope.selectedMesh = "Droplet"; //Crysta
+  $scope.selectedMesh = "Crystal"; //Droplet
   $scope.cloud.meshHeight = undefined;
   $scope.randomPlace = false;
   $scope.crystalMats = $scope.cloud.materialSettings.Crystal;

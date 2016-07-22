@@ -81,7 +81,11 @@ md-radio-button{
 
 .sidebar-nav li {
     text-indent: 20px;
-    line-height: 40px;
+    line-height: 25px;
+}
+
+.sizeSlider{
+    margin-top: -10px;
 }
 
 .sidebar-nav li a {

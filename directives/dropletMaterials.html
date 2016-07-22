@@ -1,4 +1,4 @@
-<li>
+<!-- <li>
   <md-slider-container class="col-md-11">
     <span>Gold: {{cloud.materialSettings.Droplet.gold}}%</span>
     <md-slider ng-mouseup="UpdateCloud()" ng-change="UpdateDropletSliders()" flex="" min="0" max="100"
@@ -33,5 +33,38 @@
     <span>Red: {{cloud.materialSettings.Droplet.red}}%</span>
     <md-slider ng-mouseup="UpdateCloud()" ng-change="UpdateDropletSliders()" flex="" min="0" max="100"
       ng-model="cloud.materialSettings.Droplet.red" aria-label="red">
+  </md-slider-container>
+</li> -->
+<style media="screen">
+  md-input-container{
+      margin: 0px;
+      width: 60px;
+      height: 45px;
+  }
+
+  input{
+    margin: 5px;
+    width: 60px;
+  }
+</style>
+
+<span ng-repeat="(key, value) in dropletMats">
+  <span>{{key}}</span>
+  <input ng-attr-id="{{ key + '-input' }}" flex="" type="number" ng-model="cloud.materialSettings.Droplet[key]">
+</span>
+
+<button ng-click="UpdateCrystalSliders();UpdateCloud();" class="btn">update</button>
+
+<li ng-repeat="(key, value) in dropletMats">
+  <md-slider-container>
+    <span>{{key}}</span>
+    <md-slider
+      class="col-md-11"
+      ng-mouseup="UpdateCloud()"
+      ng-change="UpdateDropletSliders()"
+      flex="" min="0" max="100"
+      ng-model="cloud.materialSettings.Droplet[key]"
+      aria-label="red" ng-attr-id="{{ key + '-slider' }}">
+    </md-slider>
   </md-slider-container>
 </li>

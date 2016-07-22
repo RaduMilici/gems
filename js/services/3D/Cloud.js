@@ -138,8 +138,8 @@ function Cloud(){
         //store positions for logging
         this.squares.positions.push(newSquare.mesh.position);
         //wires
-        linesGeom.vertices.push(newSquare.geometry.vertices[0]);
-        linesGeom.vertices.push(newSquare.geometry.vertices[1]);
+        //linesGeom.vertices.push(newSquare.geometry.vertices[0]);
+        //linesGeom.vertices.push(newSquare.geometry.vertices[1]);
         //scale
         newSquare.mesh.scale.set(this.meshHeight, this.meshHeight, this.meshHeight);
         //merge

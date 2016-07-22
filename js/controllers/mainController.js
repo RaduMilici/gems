@@ -55,11 +55,15 @@ function($scope, main3D, gemMesh) {
     main3D.project.cloud.Scale(newScale[0], newScale[1], newScale[2]);
   });
 //------------------------------------------------------------------------------
-  $scope.$watch("showBox",  function(newVal) {
+  $scope.$watchCollection("[crystalMats.crystal, crystalMats.amber, crystalMats.smoke]", function(newVal, oldVal) {
+    //$scope.UpdateCrystalSliders();
+  });
+//------------------------------------------------------------------------------
+  $scope.$watch("showBox", function(newVal) {
     main3D.project.cloud.scaleCubeMesh.visible = newVal;
   });
 //------------------------------------------------------------------------------
-  $scope.$watch("randomPlace",  function() {
+  $scope.$watch("randomPlace", function() {
     $scope.UpdateCloud();
   });
 //------------------------------------------------------------------------------
@@ -67,19 +71,19 @@ function($scope, main3D, gemMesh) {
     var sum = 0;
     _.each(_.keys($scope.crystalMats), function(k){sum += $scope.crystalMats[k];});
     $scope.crystalMats.crystal = Math.trunc(($scope.crystalMats.crystal / sum) * 100);
-    $scope.crystalMats.amber   = Math.trunc(($scope.crystalMats.amber / sum) * 100);
-    $scope.crystalMats.smoke   = Math.trunc(($scope.crystalMats.smoke / sum) * 100);
+    $scope.crystalMats.amber   = Math.trunc(($scope.crystalMats.amber   / sum) * 100);
+    $scope.crystalMats.smoke   = Math.trunc(($scope.crystalMats.smoke   / sum) * 100);
   };
-  //------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
   $scope.UpdateDropletSliders = function(){
     var sum = 0;
     _.each(_.keys($scope.dropletMats), function(k){sum += $scope.dropletMats[k];});
-    $scope.dropletMats.gold   = Math.trunc(($scope.dropletMats.gold / sum) * 100);
+    $scope.dropletMats.gold   = Math.trunc(($scope.dropletMats.gold   / sum) * 100);
     $scope.dropletMats.silver = Math.trunc(($scope.dropletMats.silver / sum) * 100);
     $scope.dropletMats.copper = Math.trunc(($scope.dropletMats.copper / sum) * 100);
-    $scope.dropletMats.black  = Math.trunc(($scope.dropletMats.black / sum) * 100);
-    $scope.dropletMats.blue   = Math.trunc(($scope.dropletMats.blue / sum) * 100);
-    $scope.dropletMats.red    = Math.trunc(($scope.dropletMats.red / sum) * 100);
+    $scope.dropletMats.black  = Math.trunc(($scope.dropletMats.black  / sum) * 100);
+    $scope.dropletMats.blue   = Math.trunc(($scope.dropletMats.blue   / sum) * 100);
+    $scope.dropletMats.red    = Math.trunc(($scope.dropletMats.red    / sum) * 100);
   };
 //------------------------------------------------------------------------------
   main3D.project.cloud.Scale($scope.userWidth, $scope.userHeight, $scope.userLength);

@@ -8,14 +8,14 @@
 </li>
 <li>
   <md-slider-container class="col-md-11">
-    <span>Length: <input type="number"ng-change="UpdateCloud()" ng-model="userLength" min=""> cm</span>
+    <span>Length: <input type="number" ng-change="UpdateCloud()" ng-model="userLength" min=""> cm</span>
     <md-slider class="sizeSlider" ng-mouseup="UpdateCloud()" flex="" min="{{cloud.minLength}}" max="{{cloud.maxLength}}"
       ng-model="userLength" aria-label="gray" id="red-slider">
   </md-slider-container>
 </li>
 <li>
   <md-slider-container class="col-md-11">
-    <span>Height: <input type="number"ng-change="UpdateCloud()" ng-model="userHeight" min=""> cm</span>
+    <span>Height: <input type="number" ng-change="UpdateCloud()" ng-model="userHeight" min=""> cm</span>
     <md-slider class="sizeSlider" ng-mouseup="UpdateCloud()" flex="" min="{{cloud.minHeight}}" max="{{cloud.maxHeight}}"
       ng-model="userHeight" aria-label="red" id="red-slider">
   </md-slider-container>

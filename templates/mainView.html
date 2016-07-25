@@ -14,16 +14,17 @@
         <noise-control></noise-control>
           <li>
             <md-slider-container class="col-md-11">
-              <span>Gem height: {{cloud.meshHeight}} cm</span>
+              <span>Gem height: {{cloud.meshHeight | number: 0}} cm</span>
               <md-slider ng-mouseup="UpdateCloud()" flex="" min="{{gemMesh.Min}}" max="{{gemMesh.Max}}"
                 ng-model="cloud.meshHeight" aria-label="red">
             </md-slider-container>
           </li>
           <li>
             <md-slider-container class="col-md-11">
-              <span>Dispersion: {{cloud.count}} gems</span>
-              <md-slider ng-mouseup="UpdateCloud()" flex="" min="{{gemMesh.Min}}" max="100"
-                ng-model="cloud.meshHeight" aria-label="red">
+              <!-- <span>Density: {{cloud.count}} gems</span> -->
+              <span>Density: {{userDensity}}%</span>
+              <md-slider ng-mouseup="SetDensity()" flex="" min="1" max="100"
+                ng-model="userDensity" aria-label="red">
             </md-slider-container>
           </li>
           <li>

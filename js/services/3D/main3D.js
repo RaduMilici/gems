@@ -7,7 +7,7 @@ function(animate, WebGLRenderer, Loader, Project, gemMesh, screenshot, updater){
     animate.renderer = new WebGLRenderer(this.containerID);
     animate.loader = new Loader();
     animate.MakeCamera({
-      pos: new THREE.Vector3(-350, 250, -350),
+      pos: new THREE.Vector3(-350, 50, 350),
       lookAt: new THREE.Vector3(0, -100, 0),
     });
     var winResize  = new THREEx.WindowResize(animate.renderer.renderer, animate.camera);

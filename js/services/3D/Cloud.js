@@ -22,15 +22,13 @@ function Cloud(){
   this.magnitude = 50;
   this.count = 0;
   //squares
-  this.squares = {
-    positions: []
-  };
+  this.squares = [];
 
   this.materialSettings = {
     number: 50000,
     Crystal:{
-      crystal: 100,
-      amber: 0,
+      crystal: 80,
+      amber: 20,
       smoke: 0
     },
     Droplet:{
@@ -45,7 +43,7 @@ function Cloud(){
   this.materialIDs = [];
 
   var width, length, height;
-  var lineColor = 0x979797;
+  var lineColor = 0x535353;
   var scaleCubeColor = 0xffffff;
   var gemMat = new THREE.MeshBasicMaterial({ color: 0xFFFAD5 });
   var offsetMatrix = new THREE.Matrix4();
@@ -85,6 +83,7 @@ function Cloud(){
 //-----------------------------------------------------------------------
   this.Populate = function(x, y, z, randomPos){
     this.count = 0;
+    this.squares.positions = [];
     var scope = this;
     var linesGeom = new THREE.Geometry();
     var gemGeom = new THREE.Geometry();
@@ -123,8 +122,8 @@ function Cloud(){
         posY = posY.toFixed(floatPrecision);
         //cap the roof
         if(-posY > y * 2) {
-          //posY = -y - this.meshHeight;
-          highest = posY;
+          posY = random(-y - this.meshHeight, -y * 2);
+          //posY -= y*x;
         }
 
         var newSquare = new Square({
@@ -136,10 +135,12 @@ function Cloud(){
         });
 
         //store positions for logging
-        this.squares.positions.push(newSquare.mesh.position);
+        this.squares.push({
+          pos: newSquare.mesh.position
+        });
         //wires
-        //linesGeom.vertices.push(newSquare.geometry.vertices[0]);
-        //linesGeom.vertices.push(newSquare.geometry.vertices[1]);
+        linesGeom.vertices.push(newSquare.geometry.vertices[0]);
+        linesGeom.vertices.push(newSquare.geometry.vertices[1]);
         //scale
         newSquare.mesh.scale.set(this.meshHeight, this.meshHeight, this.meshHeight);
         //merge
@@ -151,6 +152,7 @@ function Cloud(){
     lineSegmentMesh = new THREE.LineSegments(linesGeom,  new THREE.LineBasicMaterial({color: lineColor}));
 
     //offset gems and wires
+    console.log(highest)
     var box = new THREE.Box3().setFromObject( gemsMesh );
     gemsMesh.position.setY(-box.min.y - y);
     lineSegmentMesh.position.setY(-box.min.y - y);
@@ -169,6 +171,7 @@ function Cloud(){
   };
 //-----------------------------------------------------------------------
   this.LogPositions = function(){
+    console.log("dasd")
     $log.debug(JSON.stringify(this.squares));
   };
 //-----------------------------------------------------------------------

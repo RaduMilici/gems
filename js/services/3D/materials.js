@@ -1,7 +1,7 @@
 gemApp.factory("materials",
 ["gemMesh", "animate", function(gemMesh, animate){
 
-var mats = {
+var mats = {  
   Crystal:
     new THREE.MeshFaceMaterial([
       new THREE.MeshStandardMaterial( { //crystal

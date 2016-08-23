@@ -3,16 +3,16 @@ function($scope, main3D, gemMesh) {
   main3D.Start();
 
   //cloud size
-  $scope.userWidth = 150;
+  $scope.userWidth = 500;
   $scope.userHeight = 100;
-  $scope.userLength = 1000;
+  $scope.userLength = 500;
   $scope.userDensity = 80;
 
   $scope.cloud = main3D.project.cloud;
   $scope.gemMesh = gemMesh;
   $scope.userNoiseScale = $scope.cloud.minNoiseScale;
   $scope.userMagnitude = $scope.cloud.magnitude;
-  $scope.showBox = true;
+  $scope.showBox = false;
   $scope.selectedMesh = "Crystal"; //Droplet
   $scope.cloud.meshHeight = undefined;
   $scope.randomPlace = false;

@@ -27,8 +27,8 @@ function Cloud(){
   this.materialSettings = {
     number: 50000,
     Crystal:{
-      crystal: 80,
-      amber: 20,
+      crystal: 95,
+      amber: 5,
       smoke: 0
     },
     Droplet:{
@@ -171,7 +171,6 @@ function Cloud(){
   };
 //-----------------------------------------------------------------------
   this.LogPositions = function(){
-    console.log("dasd")
     $log.debug(JSON.stringify(this.squares));
   };
 //-----------------------------------------------------------------------

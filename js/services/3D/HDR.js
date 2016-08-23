@@ -1,4 +1,4 @@
-gemApp.factory("HDR", ["gemMesh", function(gemMesh){
+gemApp.factory("HDR", ["gemMesh", "materials", function(gemMesh, mats){
 return function(animate){
   var renderer = animate.renderer.renderer;
   this.hdrCubeRenderTarget = undefined;
@@ -14,6 +14,24 @@ return function(animate){
     pmremCubeUVPacker.update( renderer );
 
     this.hdrCubeRenderTarget = pmremCubeUVPacker.CubeUVRenderTarget;
+
+    gemMesh.LoadTexture().then(function(map){
+      _.each(mats.Crystal.materials, function(mat){
+        mat.envMap = animate.hdr.hdrCubeRenderTarget.texture;
+        mat.envMap.magFilter =
+        mat.envMap.minFilter = THREE.LinearFilter;
+        mat.needsUpdate = true;
+      });
+
+      _.each(mats.Droplet.materials, function(mat){
+        mat.envMap = animate.hdr.hdrCubeRenderTarget.texture;
+        mat.envMap.magFilter =
+        mat.envMap.minFilter = THREE.LinearFilter;
+        mat.needsUpdate = true;
+      });
+    });
+
+    animate.Start();
 
   }.bind(this) );
 
